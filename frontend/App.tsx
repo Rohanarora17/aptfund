@@ -15,24 +15,7 @@ function App() {
 
   return (
     <main>
-      <Header />
-
-      {/* <div className="flex items-center justify-center flex-col">
-        {connected ? (
-          <Card>
-            <CardContent className="flex flex-col gap-10 pt-6">
-              <WalletDetails />
-              <NetworkInfo />
-              gjbhknjlkml,
-              <AccountInfo />
-            </CardContent>
-          </Card>
-        ) : (
-          <CardHeader>
-            <CardTitle>To get started Connect a wallet</CardTitle>
-          </CardHeader>
-        )}
-      </div> */}
+      
       
 
      <Switch>
