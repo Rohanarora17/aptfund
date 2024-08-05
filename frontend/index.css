@@ -75,3 +75,36 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* styles.css */
+.header {
+  position: relative;
+  z-index: 10;
+  padding: 1rem;
+  width: 100%;
+}
+
+.header h1 {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+}
+
+.wallet-selector {
+  display: flex;
+  gap: 8px;
+}
+
+.wallet-selector button {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
+.wallet-selector button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
