@@ -5,20 +5,25 @@ import { Header } from "@/components/Header";
 import { WalletDetails } from "@/components/WalletDetails";
 import { NetworkInfo } from "@/components/NetworkInfo";
 import { AccountInfo } from "@/components/AcoountInfo";
+import { BackgroundGradientAnimation } from "./components/ui/background-gradient-animation";
+import { Route } from "wouter";
+import { Homepage } from "@/components/pages/Homepage";
+import { Switch } from "wouter" ;
 
 function App() {
   const { connected } = useWallet();
 
   return (
-    <>
+    <main>
       <Header />
 
-      <div className="flex items-center justify-center flex-col">
+      {/* <div className="flex items-center justify-center flex-col">
         {connected ? (
           <Card>
             <CardContent className="flex flex-col gap-10 pt-6">
               <WalletDetails />
               <NetworkInfo />
+              gjbhknjlkml,
               <AccountInfo />
             </CardContent>
           </Card>
@@ -27,8 +32,16 @@ function App() {
             <CardTitle>To get started Connect a wallet</CardTitle>
           </CardHeader>
         )}
-      </div>
-    </>
+      </div> */}
+      
+
+     <Switch>
+       <Route path ="/" component={Homepage} />
+       {/* <Route path ="/dashboard" component  = {Dashboard} /> */}
+     </Switch>
+      
+
+    </main>
   );
 }
 
