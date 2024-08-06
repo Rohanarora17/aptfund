@@ -12,7 +12,8 @@ import {
   useWallet,
 } from "@aptos-labs/wallet-adapter-react";
 import { ArrowLeft, ArrowRight, ChevronDown, Copy, LogOut, User } from "lucide-react";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useLocation } from "wouter";
 // Internal components
 import { Button } from "@/components/ui/button";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
@@ -32,11 +33,11 @@ export function WalletSelector() {
 
   const closeDialog = useCallback(() => setIsDialogOpen(false), []);
 
+
   const copyAddress = useCallback(async () => {
     if (!account?.address) return;
     try {
-      await navigator.clipboard.writeText(account.address);
-      toast({
+      await navigator.clipboard.writeText(account.address);({
         title: "Success",
         description: "Copied wallet address to clipboard.",
       });
@@ -48,6 +49,18 @@ export function WalletSelector() {
       });
     }
   }, [account?.address, toast]);
+  const [location,setLocation] = useLocation()
+
+  
+
+
+
+  useEffect(()=>{
+    if(connected){
+      setLocation('/login')
+    }
+
+  },[connected])
 
   return connected ? (
     <DropdownMenu>
@@ -85,8 +98,10 @@ interface ConnectWalletDialogProps {
 }
 
 function ConnectWalletDialog({ close }: ConnectWalletDialogProps) {
+  const {connected} = useWallet();
   const { wallets = [] } = useWallet();
   const { aptosConnectWallets, availableWallets, installableWallets } = groupAndSortWallets(wallets);
+  const [location, setLocation] = useLocation();
 
   const hasAptosConnectWallets = !!aptosConnectWallets.length;
 
@@ -109,7 +124,9 @@ function ConnectWalletDialog({ close }: ConnectWalletDialogProps) {
         {hasAptosConnectWallets && (
           <div className="flex flex-col gap-2 pt-3">
             {aptosConnectWallets.map((wallet) => (
-              <AptosConnectWalletRow key={wallet.name} wallet={wallet} onConnect={close} />
+              <AptosConnectWalletRow key={wallet.name} wallet={wallet} onConnect={() => {
+                close();
+              }} />
             ))}
             <p className="flex gap-1 justify-center items-center text-muted-foreground text-sm">
               Learn more about{" "}
@@ -187,8 +204,19 @@ function WalletRow({ wallet, onConnect }: WalletRowProps) {
 }
 
 function AptosConnectWalletRow({ wallet, onConnect }: WalletRowProps) {
+
+  
+
+  const handleConnect = async () => {
+    // try {
+    //   await connect(wallet); // Ensure this triggers the wallet connection
+    //   if (onConnect) onConnect();
+    // } catch (error) {
+    //   console.error("Error connecting wallet:", error);
+    // }
+  };
   return (
-    <WalletItem wallet={wallet} onConnect={onConnect}>
+    <WalletItem wallet={wallet} onConnect={handleConnect} >
       <WalletItem.ConnectButton asChild>
         <Button size="lg" variant="outline" className="w-full gap-4">
           <WalletItem.Icon className="h-5 w-5" />
