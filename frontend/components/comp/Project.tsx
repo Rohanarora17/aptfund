@@ -7,13 +7,14 @@ import { JSX } from "react/jsx-runtime";
 interface ProjectProps {
   title: string;
   description: string;
-  projects: { title: string; image: string }[];
+  projects: { id:string;title: string; image: string }[];
   image: string;
+  category: string;
 }
 
-const Project: React.FC<ProjectProps> = ({ title, description, projects, image }) => {
+const Project: React.FC<ProjectProps> = ({ title, description, projects, image, category }) => {
   const [location, setLocation] = useLocation();
-  const [timeLeft, setTimeLeft] = useState(60); // Set initial countdown time in seconds
+  const [timeLeft, setTimeLeft] = useState(300); // Set initial countdown time in seconds (5 minutes)
 
   useEffect(() => {
     if (timeLeft > 0) {
@@ -42,7 +43,7 @@ const Project: React.FC<ProjectProps> = ({ title, description, projects, image }
           <p className="text-white max-w-3xl">{description}</p>
           <img
             src={image}
-            alt="Defi"
+            alt={title}
             width={450}
             height={300}
             className="rounded-lg justify-between ml-8"
@@ -52,8 +53,11 @@ const Project: React.FC<ProjectProps> = ({ title, description, projects, image }
         <div className="flex items-center gap-4 mt-8">
           <div className="text-white font-bold text-2xl">Countdown:</div>
           <div className="relative w-full max-w-md">
-            <div id="countdown-bar" className="h-4 bg-primary rounded-full" style={{ width: `${(timeLeft / 60) * 100}%` }} />
-            <div id="countdown" className="absolute inset-0 flex items-center justify-center text-white font-bold text-2xl">
+            <div id="countdown-bar" className="h-4 bg-primary rounded-full" style={{ width: `${(timeLeft / 300) * 100}%` }} />
+            <div
+              id="countdown"
+              className="absolute inset-0 flex items-center justify-center text-white font-bold text-2xl"
+            >
               {formatTime(timeLeft)}
             </div>
           </div>
@@ -61,10 +65,9 @@ const Project: React.FC<ProjectProps> = ({ title, description, projects, image }
         <h2 className="text-2xl font-bold mt-8">Current Running Projects</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4">
           {projects.map((project, index) => (
-            <Card className="flex flex-col" key={index}>
-              <CardContent className="flex-1">
-                <div className="flex flex-col items-start gap-4">
-                  <div className="flex items-center justify-evenly w-full">
+            <Card className="p-3" key={index}>
+              <CardContent className="flex justify-between items-center ">
+                
                     <img
                       src={project.image}
                       alt={project.title}
@@ -85,16 +88,14 @@ const Project: React.FC<ProjectProps> = ({ title, description, projects, image }
                       <Button
                         variant="ghost"
                         className="mt-4 shadow-lg shadow-black/50 bg-black text-white"
-                        onClick={() => setLocation(`/dashboard/Defi/${project.title}/`)}
+                        onClick={() => setLocation(`/dashboard/${category}/${project.id}`)}
                       >
                         View Project
                       </Button>
                     </div>
-                  </div>
-                </div>
               </CardContent>
               <CardHeader />
-            </Card>
+            </Card> 
           ))}
         </div>
       </main>

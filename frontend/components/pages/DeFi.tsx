@@ -13,10 +13,12 @@ export default function Component() {
     {
       title: "Crypto Exchange",
       image: cryptoimage,
+      id: "exchange"
     },
     {
       title: "Trading Bot",
       image: botimage,
+      id: "arbitrage"
     },
   ];
 
@@ -24,8 +26,11 @@ export default function Component() {
     <Project
       title="DeFi"
       image={DefiImage}
-      description="A DeFi project description goes here."
+      description="Welcome to the DeFi Track on APT Fund, your premier destination for decentralized finance
+      innovation! Our platform is dedicated to revolutionizing the financial landscape by providing a robust
+      space for crowdfunding the next generation of DeFi projects."
       projects={projects}
+      category="Defi"
     />
   );
 }
