@@ -1,5 +1,6 @@
 import { SVGProps } from "react"
 import { JSX } from "react/jsx-runtime"
+import cryptoimage from "@/components/images/cryptocurrencyex.jpeg";
 
 /**
  * v0 by Vercel.
@@ -49,7 +50,7 @@ export default function Component() {
             </div>
             <div className="order-1 md:order-2 relative">
               <img
-                src="/placeholder.svg"
+                src={cryptoimage}
                 alt="Defi Crypto Exchange"
                 width={450}
                 height={300}

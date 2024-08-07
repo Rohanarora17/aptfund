@@ -1,5 +1,6 @@
 import { SVGProps } from "react"
 import { JSX } from "react/jsx-runtime"
+import botimage from "@/components/images/bot.jpeg";
 
 /**
  * v0 by Vercel.
@@ -48,7 +49,7 @@ export default function Component() {
             </div>
             <div className="order-1 md:order-2 relative">
               <img
-                src="/placeholder.svg"
+                src={botimage}
                 alt="DeFi Arbitrage Bot"
                 width={450}
                 height={300}
