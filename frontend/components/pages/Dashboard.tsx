@@ -11,8 +11,10 @@ import Defi from "@/components/images/DEFI.jpeg"
 import Depin from "@/components/images/Depin.png"
 import RWA from "@/components/images/Rwa.png"
 import music from "@/components/images/Music.jpeg"
+import { useLocation } from "wouter"
 
 export default function Component() {
+  const [location, setLocation] = useLocation();
   return (
     <div className="flex flex-col min-h-[100dvh] bg-gradient-to-br from-[rgb(108,0,162)] to-[rgb(0,17,82)]">
       <header className="flex items-center justify-between px-6 py-4 bg-primary text-primary-foreground">
@@ -38,7 +40,7 @@ export default function Component() {
               <p>Explore the latest decentralized finance projects and help shape the future of finance.</p>
             </CardContent>
             <CardFooter>
-              <Button variant="outline">View Projects</Button>
+              <Button variant="outline" onClick={()=>setLocation("/dashboard/Defi")}>View Projects</Button>
             </CardFooter>
           </Card>
           <Card className="bg-primary-foreground text-primary">
@@ -60,7 +62,7 @@ export default function Component() {
               </p>
             </CardContent>
             <CardFooter>
-              <Button variant="outline">View Projects</Button>
+              <Button variant="outline" onClick={()=>setLocation("/dashboard/Gaming")}>View Projects</Button>
             </CardFooter>
           </Card>
           <Card className="bg-primary-foreground text-primary">
@@ -79,7 +81,7 @@ export default function Component() {
               <p>Contribute to decentralized social platforms and empower communities to connect and thrive.</p>
             </CardContent>
             <CardFooter>
-              <Button variant="outline">View Projects</Button>
+              <Button variant="outline" onClick={()=>setLocation("/dashboard/Social")} >View Projects</Button>
             </CardFooter>
           </Card>
         </div>
@@ -101,7 +103,7 @@ export default function Component() {
               <p>Explore the latest decentralized finance projects and help shape the future of finance.</p>
             </CardContent>
             <CardFooter>
-              <Button variant="outline">View Projects</Button>
+              <Button variant="outline" onClick={()=>setLocation("/dashboard/rwa")} >View Projects</Button>
             </CardFooter>
           </Card>
           <Card className="bg-primary-foreground text-primary">
@@ -123,7 +125,7 @@ export default function Component() {
               </p>
             </CardContent>
             <CardFooter>
-              <Button variant="outline">View Projects</Button>
+              <Button variant="outline" onClick={()=>setLocation("/dashboard/DePin")}>View Projects</Button>
             </CardFooter>
           </Card>
           <Card className="bg-primary-foreground text-primary">
@@ -142,7 +144,7 @@ export default function Component() {
               <p>Contribute to decentralized social platforms and empower communities to connect and thrive.</p>
             </CardContent>
             <CardFooter>
-              <Button variant="outline">View Projects</Button>
+              <Button variant="outline" onClick={()=>setLocation("/dashboard/Music")} >View Projects</Button>
             </CardFooter>
           </Card>
         </div>

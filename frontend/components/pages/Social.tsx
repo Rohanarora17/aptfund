@@ -10,8 +10,10 @@ import { JSX } from "react/jsx-runtime"
 import Social from "@/components/images/social.jpg"
 import SM from "@/components/images/SocialMedia.jpeg"
 import bg from "@/components/images/Blog.png"
+import { useLocation } from "wouter"
 
 export default function Component() {
+  const [location, setLocation] = useLocation();
   return (
     <div className="flex flex-col min-h-[100dvh] bg-gradient-to-br from-[rgb(108,0,162)] to-[rgb(0,17,82)]">
       <header className="flex items-center justify-between px-6 py-4 bg-primary text-primary-foreground">
@@ -62,7 +64,7 @@ export default function Component() {
                       </Button>
                       <span className="text-black">250 likes</span>
                     </div>
-                    <Button variant="ghost" className="mt-4 shadow-lg shadow-black/50 bg-black text-white">
+                    <Button variant="ghost" className="mt-4 shadow-lg shadow-black/50 bg-black text-white"onClick={() => setLocation("/dashboard/Social/Socialmedia")}>
                       View Project
                     </Button>
                   </div>
@@ -92,7 +94,7 @@ export default function Component() {
                       </Button>
                       <span className="text-black">150 likes</span>
                     </div>
-                    <Button variant="ghost" className="mt-4 shadow-lg shadow-black/50 bg-black text-white">
+                    <Button variant="ghost" className="mt-4 shadow-lg shadow-black/50 bg-black text-white" onClick={() => setLocation("/dashboard/social/Blog")}>
                       View Project
                     </Button>
                   </div>

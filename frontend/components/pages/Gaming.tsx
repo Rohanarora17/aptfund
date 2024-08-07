@@ -10,8 +10,10 @@ import { JSX } from "react/jsx-runtime"
 import Gm from "@/components/images/GAMING1.png"
 import NT from "@/components/images/NFTgame.jpeg"
 import FS from "@/components/images/FPSgame.jpg"
+import { useLocation } from "wouter"
 
 export default function Component() {
+  const [location, setLocation] = useLocation();
   return (
     <div className="flex flex-col min-h-[100dvh] bg-gradient-to-br from-[rgb(108,0,162)] to-[rgb(0,17,82)]">
       <header className="flex items-center justify-between px-6 py-4 bg-primary text-primary-foreground">
@@ -40,10 +42,9 @@ export default function Component() {
         </div>
         <h2 className="text-2xl font-bold mt-8">Current Running Projects</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4">
-          <Card className="flex flex-col">
-            <CardContent className="flex-1">
-              <div className="flex flex-col items-start gap-4">
-                <div className="flex items-center justify-evenly w-full">
+          <Card className="p-3">
+            <CardContent className="flex justify-between items-center">
+        
                   <img
                     src={NT}
                     alt="Revolutionary NFT game"
@@ -52,7 +53,7 @@ export default function Component() {
                     className="rounded-lg"
                     style={{ aspectRatio: "150/150", objectFit: "cover" }}
                   />
-                  <div className="flex flex-col items-end gap-2">
+                  <div className="space-y-2">
                     <div className="text-black font-bold">Revolutionary NFT game</div>
                     <div className="flex items-center gap-2">
                       <Button variant="ghost" size="icon">
@@ -61,19 +62,19 @@ export default function Component() {
                       </Button>
                       <span className="text-black">250 likes</span>
                     </div>
-                    <Button variant="ghost" className="mt-4 shadow-lg shadow-black/50 bg-black text-white">
+                    <Button variant="ghost" className="mt-4 shadow-lg shadow-black/50 bg-black text-white"onClick={() => setLocation("/dashboard/gaming/NFTgame")}>
                       View Project
                     </Button>
-                  </div>
-                </div>
+                 
+              
+                 
               </div>
             </CardContent>
             <CardHeader />
           </Card>
-          <Card className="flex flex-col">
-            <CardContent className="flex-1">
-              <div className="flex flex-col items-start gap-4">
-                <div className="flex items-center justify-evenly w-full">
+          <Card className="p-3">
+            <CardContent className="flex justify-between items-center">
+              
                   <img
                     src= {FS}
                     alt="First FPS game on chain"
@@ -82,7 +83,7 @@ export default function Component() {
                     className="rounded-lg"
                     style={{ aspectRatio: "150/150", objectFit: "cover" }}
                   />
-                  <div className="flex flex-col items-end gap-2">
+                  <div className="space-y-2">
                     <div className="text-black font-bold">First FPS game on chain</div>
                     <div className="flex items-center gap-2">
                       <Button variant="ghost" size="icon">
@@ -91,12 +92,12 @@ export default function Component() {
                       </Button>
                       <span className="text-black">150 likes</span>
                     </div>
-                    <Button variant="ghost" className="mt-4 shadow-lg shadow-black/50 bg-black text-white">
+                    <Button variant="ghost" className="mt-4 shadow-lg shadow-black/50 bg-black text-white"onClick={() => setLocation("/dashboard/gaming/FPSgame/")}>
                       View Project
                     </Button>
                   </div>
-                </div>
-              </div>
+              
+          
             </CardContent>
             <CardHeader />
           </Card>
