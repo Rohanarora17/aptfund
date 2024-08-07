@@ -7,6 +7,6 @@ authors = []
 module_addr = "_"
 
 [dependencies]
-AptosFramework = { git = "https://github.com/aptos-labs/aptos-core.git", rev = "mainnet", subdir = "aptos-move/framework/aptos-framework" }
+AptosFramework = { local = "/home/rohan/aptos-core/aptos-move/framework/aptos-framework", rev = "testnet"}
 
 [dev-dependencies]

@@ -55,12 +55,12 @@ export function WalletSelector() {
 
 
 
-  useEffect(()=>{
-    if(connected){
-      setLocation('/login')
-    }
+  // useEffect(()=>{
+  //   if(connected){
+  //     setLocation('/login')
+  //   }
 
-  },[connected])
+  // },[connected])
 
   return connected ? (
     <DropdownMenu>
