@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { HoverEffect } from "@/components/ui/card-hover-effect"; // Adjust the import path as needed
-
+import { Button } from "@/components/ui/button";
 interface ProjectProps {
   title: string;
   description: string;
@@ -39,8 +39,22 @@ const Project: React.FC<ProjectProps> = ({ title, description, projects, image, 
 
   return (
     <div className="flex flex-col min-h-[100vh] bg-gradient-to-br from-[rgb(108,0,162)] to-[rgb(0,17,82)]">
-      <header className="flex items-center justify-between px-6 py-4 bg-primary text-primary-foreground">
-        <div className="text-2xl font-bold">APT FUND</div>
+      <header className="w-full bg-black shadow-lg">
+        <div className="flex items-center justify-between px-6 py-4">
+          <div
+            className="text-3xl font-extrabold text-white cursor-pointer"
+            onClick={() => setLocation("/dashboard")}
+          >
+            APT FUND
+          </div>
+          <Button
+            variant="outline"
+            className="text-black border-white hover:bg-black hover:text-white"
+            onClick={() => setLocation("/dashboard/roundform")}
+          >
+            Apply for Funding
+          </Button>
+        </div>
       </header>
       <main className="flex-1 px-6 py-8 mr-4">
         <h1 className="text-5xl font-bold pl-20">{title}</h1>
