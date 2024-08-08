@@ -33,7 +33,6 @@ export function WalletSelector() {
 
   const closeDialog = useCallback(() => setIsDialogOpen(false), []);
 
-
   const copyAddress = useCallback(async () => {
     if (!account?.address) return;
     try {
@@ -52,7 +51,6 @@ export function WalletSelector() {
   const [location,setLocation] = useLocation()
 
   
-
 
 
   // useEffect(()=>{
