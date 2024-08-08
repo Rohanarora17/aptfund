@@ -94,6 +94,22 @@ module module_addr::aptfund {
         create_resource_account(admin);
     }
 
+    #[view]
+    public fun get_project_info(round_id:u64, project_id:u64): ProjectData acquires RoundStore {
+        let round_details = get_round_data(round_id); 
+        let projects  = round_details.projects;
+        let projects_len = vector::length(&projects);
+        let j = 0;
+        while (j < projects_len) {
+            
+            if (vector::borrow(&projects, j).id == project_id) {
+                return *vector::borrow(&projects, j)
+            };
+            j = j + 1;
+        };
+        abort E_PROJECT_NOT_FOUND
+    }
+
 
     public entry fun initialize_donations(admin:&signer)acquires Admin{
         assert_admin(admin);
