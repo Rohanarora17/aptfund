@@ -87,12 +87,9 @@ module module_addr::rounds {
             image,
             size,
             projects: vector::empty<ProjectData>(),
-
         };
         let round_store = borrow_global_mut<RoundStore>(signer::address_of(admin));
         vector::push_back(&mut round_store.rounds, round_details);
-        
-
     }
 
     
