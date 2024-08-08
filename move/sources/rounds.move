@@ -9,6 +9,8 @@ module module_addr::aptfund {
     use aptos_std::table::{Self, Table};
     use aptos_framework::account;
     use aptos_framework::timestamp;
+    use std::debug;
+
 
     const E_INSUFFICIENT_BALANCE: u64 = 1;
     const E_NOT_ADMIN: u64 = 2;
@@ -46,7 +48,10 @@ module module_addr::aptfund {
         amount: u64,
         unique_donors:u64,
         donations:vector<Donation>,
+
+        
     }
+    
 
     struct RoundData has copy, drop, store {
         id: u64,
@@ -94,22 +99,6 @@ module module_addr::aptfund {
         create_resource_account(admin);
     }
 
-    #[view]
-    public fun get_project_info(round_id:u64, project_id:u64): ProjectData acquires RoundStore {
-        let round_details = get_round_data(round_id); 
-        let projects  = round_details.projects;
-        let projects_len = vector::length(&projects);
-        let j = 0;
-        while (j < projects_len) {
-            
-            if (vector::borrow(&projects, j).id == project_id) {
-                return *vector::borrow(&projects, j)
-            };
-            j = j + 1;
-        };
-        abort E_PROJECT_NOT_FOUND
-    }
-
 
     public entry fun initialize_donations(admin:&signer)acquires Admin{
         assert_admin(admin);
@@ -139,8 +128,8 @@ module module_addr::aptfund {
     }
 
     #[randomness]
-    entry fun create_round(admin: &signer, name: String, description: String, track: String, start: u64, end: u64, image: String, size: u64) acquires Admin, RoundStore {
-        assert_admin(admin);
+    entry fun create_round(admin: &signer, name: String, description: String, track: String, start: u64, end: u64, image: String, size: u64) acquires  RoundStore {
+        // assert_admin(admin);
         let round_details = RoundData {
             id: generate_id(),
             name,
@@ -194,6 +183,8 @@ module module_addr::aptfund {
             
             unique_donors : 0,
             donations: vector::empty<Donation>(),
+            
+            
         };
 
         let round_store = borrow_global_mut<RoundStore>(MODULE_ADDR); // Using module address
@@ -215,6 +206,32 @@ module module_addr::aptfund {
         let round_store = borrow_global<RoundStore>(MODULE_ADDR); // Using module address
         round_store.rounds
     }
+
+
+    #[view]
+    public fun get_round_projects(round_id:u64): vector<ProjectData> acquires RoundStore {
+        let round_details = get_round_data(round_id); 
+        round_details.projects
+    }
+
+    #[view]
+    public fun get_project_info(round_id:u64, project_id:u64): ProjectData acquires RoundStore {
+        let round_details = get_round_data(round_id); 
+        let projects  = round_details.projects;
+        let projects_len = vector::length(&projects);
+        let j = 0;
+        while (j < projects_len) {
+            
+            if (vector::borrow(&projects, j).id == project_id) {
+                return *vector::borrow(&projects, j)
+            };
+            j = j + 1;
+        };
+        abort E_PROJECT_NOT_FOUND
+    }
+        
+    
+    
 
     // Function to get round data by id
     #[view]
@@ -260,8 +277,52 @@ module module_addr::aptfund {
         vector::push_back(donor_donations, donation);
     }
 
-    public entry fun donate(donator: &signer, amount: u64, project_id: u64, round_id: u64) acquires RoundStore, DonationBook {
 
+
+    // Function to update the unique donors for a project and round
+
+    
+    // fun update_unique_donors(donor: address, project: &mut ProjectData, round: &mut RoundData) {
+
+        
+    //     let i = 0;
+    //     let check_unique_donor = true;
+    //     while (i < vector::length(&project.donations)) {
+    //         let donation = vector::borrow(&project.donations, i);
+            
+    //         if (donation.donor == donor) {
+    //             check_unique_donor = false;
+    //             break;
+    //         };
+    //         i = i + 1;
+    //     };
+
+
+    //     if(check_unique_donor){
+    //         project.unique_donors = project.unique_donors + 1;
+    //         round.total_unique_funders_count = round.total_unique_funders_count +1;
+
+    //     }
+
+        
+        
+    // }
+
+
+    fun check_unique_donor(donor: address, donations: &vector<Donation>): bool {
+        let len = vector::length(donations);
+        let i = 0;
+        while (i < len) {
+            if (vector::borrow(donations, i).donor == donor) {
+                return false;
+            };
+            i = i + 1;
+        };
+        true
+    }
+    
+
+    public entry fun donate(donator: &signer, amount: u64, project_id: u64, round_id: u64) acquires RoundStore, DonationBook {
         let donor = signer::address_of(donator);
         let donation = Donation {
             amount,
@@ -271,37 +332,51 @@ module module_addr::aptfund {
             donor
         };
 
-
-         // Ensure the DonationBook resource exists
+        // Ensure the DonationBook resource exists
         if (!exists<DonationBook>(MODULE_ADDR)) {
             let donation_book = DonationBook {
                 donations: table::new<address, vector<Donation>>(),
             };
             move_to(donator, donation_book);
         };
-        
 
-         // Assuming DonationBook is stored at module address
+        // Assuming DonationBook is stored at module address
         add_donation(donor, donation);
 
-        let round_store = borrow_global_mut<RoundStore>(MODULE_ADDR); // Using module address
+        let round_store = borrow_global_mut<RoundStore>(MODULE_ADDR);
         let rounds = &mut round_store.rounds;
         let len = vector::length(rounds);
         let i = 0;
         while (i < len) {
             if (vector::borrow(rounds, i).id == round_id) {
                 let round = vector::borrow_mut(rounds, i);
-                round.total_amount  =  round.total_amount + amount;
+                round.total_amount = round.total_amount + amount;
                 let projects = &mut round.projects;
                 let projects_len = vector::length(projects);
                 let j = 0;
                 while (j < projects_len) {
                     if (vector::borrow(projects, j).id == project_id) {
-                        //increase unique donors
-                        vector::borrow_mut(projects, j).amount = amount + vector::borrow_mut(projects, j).amount;
-                        vector::push_back(&mut vector::borrow_mut(projects, j).donations, donation);
+                        let project = vector::borrow_mut(projects, j);
+                        project.amount = amount + project.amount;
+                        // Check if donor is unique before adding the new donation
+                        let is_unique = check_unique_donor(donor, &project.donations);
+                        debug::print(&is_unique);
+                        if (is_unique) {
+                            project.unique_donors = project.unique_donors + 1;
+                            round.total_unique_funders_count = round.total_unique_funders_count + 1;
+                        };
+
+
+                        vector::push_back(&mut project.donations, donation);
+                        
                         // Funds are now kept in the smart contract's resource account
-                        coin::transfer<AptosCoin>(donator, MODULE_ADDR, amount); // Transfer from donor to resource account
+                        // Transfer from donor to resource account
+                        coin::transfer<AptosCoin>(donator, MODULE_ADDR, amount);
+
+                        // Check if donor is unique
+                        
+                        
+
                         return;
                     };
                     j = j + 1;
@@ -309,9 +384,12 @@ module module_addr::aptfund {
             };
             i = i + 1;
         };
+        
         abort E_ROUND_NOT_FOUND
     }
 
+
+    #[view]
     public fun calculate_quadratic_funding(round_id: u64): vector<QfDetails> acquires RoundStore {
         let total_weight = 0u64;
         let project_weights = vector::empty<u64>();
@@ -352,6 +430,8 @@ module module_addr::aptfund {
     }
 
 
+    #[view]
+
     public fun dac(round_id:u64): vector<u64>  acquires RoundStore {
         
         let round = get_round_data(round_id);
@@ -374,8 +454,8 @@ module module_addr::aptfund {
     }
 
 
-    public entry fun end_round(admin: &signer, round_id: u64) acquires RoundStore, DonationBook, Admin{
-        assert_admin(admin);
+    public entry fun end_round(admin: &signer, round_id: u64) acquires RoundStore, DonationBook{
+        // assert_admin(admin);
         // Step 1: Call the dac function to get projects that did not meet their goals
         let round_not_qualified = dac(round_id);
 
@@ -399,6 +479,9 @@ module module_addr::aptfund {
                 };
                 // Reduce the total amount of the round
                 round.total_amount = round.total_amount - project.amount;
+                //reduce the total unique donars
+                round.total_unique_funders_count = round.total_unique_funders_count - project.unique_donors;
+
             } else {
                 vector::push_back(&mut updated_projects, *project);
             };
@@ -423,8 +506,8 @@ module module_addr::aptfund {
 
     
 
-    fun refund_donation(admin:&signer, donation: &Donation, donor: address) acquires DonationBook, Admin{
-        assert_admin(admin);
+    fun refund_donation(admin:&signer, donation: &Donation, donor: address) acquires DonationBook{
+        // assert_admin(admin);
         let amount = donation.amount;
         let book = borrow_global_mut<DonationBook>(MODULE_ADDR);
         let donor_donations = table::borrow_mut(&mut book.donations, donor);
@@ -499,8 +582,8 @@ module module_addr::aptfund {
     }
 
     // Function to distribute funds based on quadratic funding results
-    public fun distribute_funds(admin: &signer, qf_results: &vector<QfDetails>) acquires Admin, RoundStore {
-        assert_admin(admin);
+    public fun distribute_funds(admin: &signer, qf_results: &vector<QfDetails>) acquires RoundStore {
+        // assert_admin(admin);
         let round_store = borrow_global_mut<RoundStore>(MODULE_ADDR);
         let rounds = &mut round_store.rounds;
         let len = vector::length(qf_results);
