@@ -8,6 +8,7 @@ import { useLocation } from "wouter";
 import { JSX } from "react/jsx-runtime";
 import Project from "../comp/Project";
 
+
 export default function Component() {
   const projects = [
     {
