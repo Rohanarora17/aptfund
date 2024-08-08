@@ -22,7 +22,7 @@ import Arbitrage from "@/components/pages/arbitrage";
 import SocialMedia from "@/components/pages/socialmedia";
 import Blog from "@/components/pages/blog";
 import form from "@/components/comp/form";
-
+import round from "@/components/comp/round";
 
 function App() {
   const { connected } = useWallet();
@@ -45,6 +45,8 @@ function App() {
         <Route path="/dashboard/social/socialmedia" component={SocialMedia} />
         <Route path="/dashboard/social/blog" component={Blog} />
         <Route path ="/dashboard/form" component={form} />
+        <Route path ="/dashboard/roundform" component={round} />
+        
         
       </Switch>
     </main>

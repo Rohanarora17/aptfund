@@ -24,10 +24,9 @@ export function Component() {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-    start: "",
-    end: "",
+    money_goal: "",
     image: "",
-    size: "",
+    payment_address: "",
   });
   const { account, signAndSubmitTransaction } = useWallet();
   const navigate = useNavigate();
@@ -57,10 +56,9 @@ export function Component() {
           formData.name,
           formData.description,
           selectedCategory,
-          parseInt(formData.start),
-          parseInt(formData.end),
+          parseInt(formData.money_goal),
+          formData.payment_address,
           formData.image,
-          parseInt(formData.size),
         ],
       },
     };
@@ -93,16 +91,16 @@ export function Component() {
           </Button>
         </div>
         <CardHeader>
-          <CardTitle>Create New Round</CardTitle>
+          <CardTitle>Register for a Track</CardTitle>
           <CardDescription className="text-gray-400">Fill out the form to get started.</CardDescription>
         </CardHeader>
         <CardContent>
           <form className="grid gap-4" onSubmit={addNewRound}>
             <div className="grid gap-2">
-              <Label htmlFor="name" className="text-gray-400">Round Name</Label>
+              <Label htmlFor="name" className="text-gray-400">Project Name</Label>
               <Input
                 id="name"
-                placeholder="Enter Round Name"
+                placeholder="Enter Project Name"
                 className="bg-gray-800 text-white border-gray-600 focus:border-primary"
                 value={formData.name}
                 onChange={handleInputChange}
@@ -112,7 +110,7 @@ export function Component() {
               <Label htmlFor="description" className="text-gray-400">Description</Label>
               <Textarea
                 id="description"
-                placeholder="Round Description"
+                placeholder="Project Description"
                 rows={3}
                 className="bg-gray-800 text-white border-gray-600 focus:border-primary"
                 value={formData.description}
@@ -120,27 +118,17 @@ export function Component() {
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="start" className="text-gray-400">Start Time</Label>
+              <Label htmlFor="money_goal" className="text-gray-400">Money Goal</Label>
               <Input
-                id="start"
-                placeholder="Enter start time (timestamp)"
+                id="money_goal"
+                placeholder="Enter money goal"
                 className="bg-gray-800 text-white border-gray-600 focus:border-primary"
-                value={formData.start}
+                value={formData.money_goal}
                 onChange={handleInputChange}
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="end" className="text-gray-400">End Time</Label>
-              <Input
-                id="end"
-                placeholder="Enter end time (timestamp)"
-                className="bg-gray-800 text-white border-gray-600 focus:border-primary"
-                value={formData.end}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="image" className="text-gray-400">Round Image</Label>
+              <Label htmlFor="image" className="text-gray-400">Project Image</Label>
               <Input
                 id="image"
                 placeholder="Enter image URL"
@@ -150,12 +138,12 @@ export function Component() {
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="size" className="text-gray-400">Round Size</Label>
+              <Label htmlFor="payment_address" className="text-gray-400">Payment Address</Label>
               <Input
-                id="size"
-                placeholder="Enter project size"
+                id="payment_address"
+                placeholder="Enter payment address"
                 className="bg-gray-800 text-white border-gray-600 focus:border-primary"
-                value={formData.size}
+                value={formData.payment_address}
                 onChange={handleInputChange}
               />
             </div>
@@ -208,3 +196,4 @@ function XIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
 }
 
 export default Component;
+

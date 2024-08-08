@@ -4,7 +4,7 @@ version = "1.0.0"
 authors = []
 
 [addresses]
-module_addr = "_"
+module_addr = "0x2debc4b6b5c8273cbb4ca0742c54e79b41793834e287c67263f2701b40318e3f"
 
 [dependencies]
 AptosFramework = { local = "/home/rohan/aptos-core/aptos-move/framework/aptos-framework", rev = "testnet"}
