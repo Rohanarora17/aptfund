@@ -21,6 +21,7 @@ import Exchange from "@/components/pages/exchange";
 import Arbitrage from "@/components/pages/arbitrage";
 import SocialMedia from "@/components/pages/socialmedia";
 import Blog from "@/components/pages/blog";
+import form from "@/components/comp/form";
 
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
         <Route path="/dashboard/defi/arbitrage" component={Arbitrage} />
         <Route path="/dashboard/social/socialmedia" component={SocialMedia} />
         <Route path="/dashboard/social/blog" component={Blog} />
+        <Route path ="/dashboard/form" component={form} />
         
       </Switch>
     </main>
