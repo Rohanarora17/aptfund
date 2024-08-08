@@ -11,7 +11,7 @@ interface ProjectProps {
 }
 
 const Project: React.FC<ProjectProps> = ({ title, description, projects, image, category }) => {
-  const [, setLocation] = useLocation();
+  const [location, setLocation] = useLocation();
   const [timeLeft, setTimeLeft] = useState(300); // Set initial countdown time in seconds (5 minutes)
 
   useEffect(() => {
@@ -36,7 +36,6 @@ const Project: React.FC<ProjectProps> = ({ title, description, projects, image, 
     link: `/dashboard/${category}/${project.id}`,
     image: project.image,
   }));
-
   return (
     <div className="flex flex-col min-h-[100vh] bg-gradient-to-br from-[rgb(108,0,162)] to-[rgb(0,17,82)]">
       <header className="flex items-center justify-between px-6 py-4 bg-primary text-primary-foreground">
