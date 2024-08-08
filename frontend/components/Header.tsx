@@ -1,5 +1,6 @@
 import { WalletSelector } from "./WalletSelector";
 import { useLocation } from "wouter";
+
 import '@/index.css'; // Ensure this includes your necessary styles
 
 export function Header() {

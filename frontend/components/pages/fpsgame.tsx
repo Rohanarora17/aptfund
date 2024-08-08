@@ -1,5 +1,13 @@
 import FS from "@/components/images/FPSgame.jpg"; // Adjust the import path as needed
-import { SVGProps } from "react";
+import { SVGProps, useRef } from "react";
+import { LogInWithAnonAadhaar, useAnonAadhaar } from "@anon-aadhaar/react";
+import {
+  AnonAadhaarCore,
+  deserialize,
+  packGroth16Proof,
+} from "@anon-aadhaar/core";
+import { useEffect, useState } from "react";
+import audio from "./background-music.mp3";
 
 /**
  * v0 by Vercel.
@@ -7,6 +15,65 @@ import { SVGProps } from "react";
  * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
  */
 export default function Component() {
+  const [anonAadhaar] = useAnonAadhaar();
+  const [anonAadhaarCore, setAnonAadhaarCore] = useState();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null); // Ref for the audio element
+
+  useEffect(() => {
+    console.log("Anon Aadhaar : ", anonAadhaar);
+    console.log("Anon Aadhaar status: ", anonAadhaar.status);
+    if (anonAadhaar?.status === "logged-in") {
+      setIsModalOpen(false);
+      if (anonAadhaar?.anonAadhaarProofs) {
+        console.log("Anon Aadhaar Proofs: ", anonAadhaar?.anonAadhaarProofs);
+        console.log(
+          "Anon Aadhaar Proofs: ",
+          JSON.stringify(anonAadhaar?.anonAadhaarProofs)
+        );
+        const proofs = JSON.parse(anonAadhaar?.anonAadhaarProofs[0].pcd);
+        console.log("proofs", proofs);
+        console.log("proofs.proofs", proofs.proof);
+        setAnonAadhaarCore(proofs.proof);
+        handleModalUpload(proofs.proof);
+      }
+    }
+  }, [anonAadhaar]);
+
+  const buyHandler = async () => {
+    setIsModalOpen(true);
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0; // Reset the audio to the start
+      audioRef.current.play(); // Play the audio
+    }
+  };
+
+  const handleModalUpload = async (proof: any) => {
+    try {
+      console.log("Minting process started");
+
+      const nullifierSeed = proof.nullifierSeed;
+      console.log("nullifierSeed", nullifierSeed);
+      const nullifier = proof.nullifier;
+      console.log("nullifier", nullifier);
+      const signal = proof.signalHash;
+      console.log("signal", signal);
+      const timestamp = proof.timestamp;
+      console.log("timestamp", timestamp);
+      const revealArray = [
+        proof.ageAbove18,
+        proof.gender,
+        proof.pincode,
+        proof.state,
+      ];
+      console.log("revealArray", revealArray);
+      const groth16Proof = packGroth16Proof(proof.groth16Proof);
+      console.log("groth16Proof", groth16Proof);
+    } catch (error) {
+      console.error("Error during the minting process:", error);
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-[100dvh] bg-gradient-to-br from-[rgb(108,0,162)] to-[rgb(0,17,82)]">
       <header className="flex items-center justify-between px-6 py-4 bg-primary text-primary-foreground">
@@ -26,7 +93,10 @@ export default function Component() {
               cutting-edge world of blockchain, creating a thrilling and unprecedented gaming adventure.
             </p>
             <div className="flex gap-4">
-              <button className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
+              <button
+                className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                onClick={buyHandler}
+              >
                 Fund Me
               </button>
               <button className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-8 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
@@ -52,6 +122,25 @@ export default function Component() {
           </div>
         </div>
       </main>
+      {isModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-8 rounded-lg shadow-lg relative">
+            <button
+              className="absolute top-2 right-2 text-black"
+              onClick={() => setIsModalOpen(false)}
+            >
+              &times;
+            </button>
+            <LogInWithAnonAadhaar
+              nullifierSeed={1234}
+              useTestAadhaar={true}
+              fieldsToReveal={["revealAgeAbove18"]}
+              signal={"0xdD2FD4581271e230360230F9337D5c0430Bf44C0"}
+            />
+          </div>
+        </div>
+      )}
+      <audio ref={audioRef} src={audio} />
     </div>
   );
 }
