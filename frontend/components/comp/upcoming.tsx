@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "wouter";
-import { HoverEffect } from "@/components/ui/card-hover-effect"; // Adjust the import path as needed
 
 interface ProjectProps {
   title: string;
   description: string;
-  projects: { id: string; title: string; image: string }[];
   image: string;
   category: string;
 }
 
-const Project: React.FC<ProjectProps> = ({ title, description, projects, image, category }) => {
+const Project: React.FC<ProjectProps> = ({ title, description, image }) => {
   const [, setLocation] = useLocation();
   const [timeLeft, setTimeLeft] = useState(300); // Set initial countdown time in seconds (5 minutes)
 
@@ -30,33 +28,33 @@ const Project: React.FC<ProjectProps> = ({ title, description, projects, image, 
     return `${String(minutes).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
   };
 
-  const projectItems = projects.map((project) => ({
-    title: project.title,
-    description: "View Project",
-    link: `/dashboard/${category}/${project.id}`,
-    image: project.image,
-  }));
-
   return (
     <div className="flex flex-col min-h-[100vh] bg-gradient-to-br from-[rgb(108,0,162)] to-[rgb(0,17,82)]">
       <header className="flex items-center justify-between px-6 py-4 bg-primary text-primary-foreground">
         <div className="text-2xl font-bold">APT FUND</div>
       </header>
-      <main className="flex-1 px-6 py-8 mr-4">
+      <main className="flex-1 px-6 py-8">
         <h1 className="text-5xl font-bold pl-20">{title}</h1>
         <div className="flex justify-around items-center">
           <p className="text-white max-w-3xl">{description}</p>
-          <img
-            src={image}
-            alt={title}
-            width={450}
-            height={300}
-            className="rounded-lg justify-between ml-8"
-            style={{ aspectRatio: "450/300", objectFit: "cover" }}
-          />
+          <div className="relative group">
+            <img
+              src={image}
+              alt={title}
+              width={300}
+              height={200}
+              className="object-cover w-full rounded-lg aspect-[3/4] group-hover:scale-105 transition-transform"
+              style={{ aspectRatio: "300/200", objectFit: "cover" }}
+            />
+            <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+              <h3 className="text-xl font-semibold text-white">{title}</h3>
+              <p className="text-white/80 text-sm">Coming soon</p>
+            </div>
+          </div>
         </div>
-        <div className="flex items-center gap-4 mt-4 ml-11">
-          <div className="text-white font-bold text-2xl">Time to start:</div>
+        
+        <div className="flex items-center gap-4 mt-8 ml-11">
+          <div className="text-white font-bold text-2xl">Coming soon:</div>
           <div className="relative w-full max-w-md">
             <div id="countdown-bar" className="h-4 bg-primary rounded-full" style={{ width: `${(timeLeft / 300) * 100}%` }} />
             <div
@@ -67,30 +65,9 @@ const Project: React.FC<ProjectProps> = ({ title, description, projects, image, 
             </div>
           </div>
         </div>
-        <h2 className="text-2xl font-bold mt-4">Current Running Projects</h2>
-        <HoverEffect items={projectItems} />
       </main>
     </div>
   );
 };
-
-function HeartIcon(props: JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-    </svg>
-  );
-}
 
 export default Project;
