@@ -1,7 +1,7 @@
 import { BackgroundGradientAnimation } from "@/components/ui/background-gradient-animation";
 import { Header } from "@/components/Header";
 import { TypewriterEffectSmooth } from "../ui/typewriter-effect";
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 // import { cn } from "@shadcn/ui";
 
