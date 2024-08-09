@@ -8,17 +8,24 @@ import {
 } from "@anon-aadhaar/core";
 import { useEffect, useState } from "react";
 import audio from "./background-music.mp3";
+import { useWallet, InputTransactionData } from "@aptos-labs/wallet-adapter-react";
+import { Aptos, AptosConfig } from "@aptos-labs/ts-sdk";
+import { NETWORK } from "@/constants";
 
-/**
- * v0 by Vercel.
- * @see https://v0.dev/t/JeZinC3pCrv
- * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
- */
+// Initialize the Aptos client and set module address
+const aptosConfig = new AptosConfig({ network: NETWORK });
+export const aptos = new Aptos(aptosConfig);
+export const moduleAddress = "0x63b291491eaace03eaebc33dd4d06d42f05c6d1a3e495acd48fe917da3fbb945";
+
+
+
 export default function Component() {
   const [anonAadhaar] = useAnonAadhaar();
   const [anonAadhaarCore, setAnonAadhaarCore] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const audioRef = useRef<HTMLAudioElement>(null); // Ref for the audio element
+  const [transactionInProgress, setTransactionInProgress] = useState(false); // State to track transaction progress
+  // const audioRef = useRef<HTMLAudioElement>(null); // Ref for the audio element
+  const { account, signAndSubmitTransaction } = useWallet();
 
   useEffect(() => {
     console.log("Anon Aadhaar : ", anonAadhaar);
@@ -36,16 +43,50 @@ export default function Component() {
         console.log("proofs.proofs", proofs.proof);
         setAnonAadhaarCore(proofs.proof);
         handleModalUpload(proofs.proof);
+        
+        // Trigger the donation transaction after successful login
+        donateToProject(proofs.proof);  
       }
     }
   }, [anonAadhaar]);
 
+  const donateToProject = async (proof: any) => {
+    if (!account) return;
+
+    setTransactionInProgress(true);
+
+    const amount = 1000;  // Example amount to donate
+    const projectId = 7054722220004970881;  // Example project ID
+    const roundId = 3305491644656545024;  // Example round ID
+
+    const transaction: InputTransactionData = {
+      data: {
+        function: `${moduleAddress}::aptfunding::donate`,
+        functionArguments: [
+          amount,
+          projectId,
+          roundId
+        ],
+      },
+    };
+
+    try {
+      const response = await signAndSubmitTransaction(transaction);
+      await aptos.waitForTransaction({ transactionHash: response.hash });
+      console.log("Donation transaction successful:", response);
+    } catch (error) {
+      console.error("Donation transaction failed:", error);
+    } finally {
+      setTransactionInProgress(false);
+    }
+  };
+
   const buyHandler = async () => {
     setIsModalOpen(true);
-    if (audioRef.current) {
-      audioRef.current.currentTime = 0; // Reset the audio to the start
-      audioRef.current.play(); // Play the audio
-    }
+    // if (audioRef.current) {
+    //   audioRef.current.currentTime = 0; // Reset the audio to the start
+    //   audioRef.current.play(); // Play the audio
+    // }
   };
 
   const handleModalUpload = async (proof: any) => {
@@ -180,7 +221,7 @@ export default function Component() {
           cursor: pointer;
         }
       `}</style>
-      <audio ref={audioRef} src={audio} />
+      {/* <audio ref={audioRef} src={audio} /> */}
     </div>
   );
 }

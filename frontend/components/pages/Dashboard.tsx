@@ -9,20 +9,21 @@ import RWA from "@/components/images/Rwa.png";
 import music from "@/components/images/Music.jpeg";
 import { Aptos, AptosConfig } from "@aptos-labs/ts-sdk";
 import { NETWORK } from "@/constants";
+import AI from "@/components/images/genai5.png";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { useEffect, useState } from "react";
 
 // Set up Aptos client configuration
 const aptosConfig = new AptosConfig({ network: NETWORK });
 export const aptos = new Aptos(aptosConfig);
-export const moduleAddress = "0x2debc4b6b5c8273cbb4ca0742c54e79b41793834e287c67263f2701b40318e3f";
+export const moduleAddress = "0x63b291491eaace03eaebc33dd4d06d42f05c6d1a3e495acd48fe917da3fbb945";
 
 // Function to fetch all rounds from the blockchain
 async function getAllRounds() {
   try {
     const response = await aptos.view({
       payload: {
-        function: `${moduleAddress}::aptfund::get_all_rounds`,
+        function: `${moduleAddress}::aptfunding::get_all_rounds`,
         functionArguments: [], // No arguments needed for this function
       },
     });
@@ -40,7 +41,7 @@ async function getAllRounds() {
 // Function to test module access
 async function testModuleAccess() {
   try {
-    const response = await aptos.getAccountModules(moduleAddress);
+    const response = await aptos.getAccountModules({ accountAddress : {moduleAddress}});
     console.log("Modules at address:", response);
   } catch (error) {
     console.error("Error fetching modules at address:", error);
@@ -73,8 +74,8 @@ export default function Component() {
       image: Defi,
     },
     {
-      title: "Gaming",
-      description: "Join the cutting-edge of blockchain gaming and help build the next generation of interactive experiences.",
+      title: rounds[0]?.name || "Gaming",
+      description: rounds[0]?.description ||"Join the cutting-edge of blockchain gaming and help build the next generation of interactive experiences.",
       link: "/dashboard/Gaming",
       image: Gaming,
     },
@@ -105,7 +106,20 @@ export default function Component() {
       link: "/dashboard/Music",
       image: music,
     },
+
   ];
+
+  const PastRounds = [
+    {
+      title: "GenAI",
+      description: "Generative AI is a type of artificial intelligence that creates new content, such as text, images, or music, by learning patterns from existing data.",
+      link: "/dashboard/GenAi",
+      image: AI,
+    },
+    
+  ];
+
+  
 
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-br from-gray-800 via-gray-900 to-black">
@@ -140,6 +154,13 @@ export default function Component() {
             <span className="absolute left-0 -bottom-2 w-full h-1 bg-gradient-to-r from-green-500 to-blue-500 rounded-full"></span>
           </h2>
           <HoverEffect items={upcomingTracks} />
+        </section>
+        <section className="mt-12">
+          <h2 className="text-3xl font-extrabold text-white mb-6 relative">
+            Past Rounds
+            <span className="absolute left-0 -bottom-2 w-full h-1 bg-gradient-to-r from-green-500 to-blue-500 rounded-full"></span>
+          </h2>
+          <HoverEffect items={PastRounds} />
         </section>
       </main>
     </div>

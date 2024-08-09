@@ -1,12 +1,60 @@
 import NT from "@/components/images/NFTgame.jpeg" // Adjust the import path as needed
 import { SVGProps } from "react";
 
+import { useWallet, InputTransactionData } from "@aptos-labs/wallet-adapter-react";
+import { Aptos, AptosConfig } from "@aptos-labs/ts-sdk";
+import { NETWORK } from "@/constants";
+import { useState, useEffect } from "react";
+
+// Initialize the Aptos client and set module address
+const aptosConfig = new AptosConfig({ network: NETWORK });
+export const aptos = new Aptos(aptosConfig);
+export const moduleAddress = "0x63b291491eaace03eaebc33dd4d06d42f05c6d1a3e495acd48fe917da3fbb945";
+
+
+
 /**
  * v0 by Vercel.
  * @see https://v0.dev/t/JeZinC3pCrv
  * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
  */
 export default function Component() {
+
+  const [transactionInProgress, setTransactionInProgress] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const { account, signAndSubmitTransaction } = useWallet();
+
+  const amount = "1000";  // Example amount to donate
+    const projectId = "7054722220004970881";  // Example project ID
+    const roundId = "3305491644656545024";  // Example round ID
+  const donate_funds = async (e :any) => {
+    e.preventDefault();
+    if (!account ) return;
+  
+    setTransactionInProgress(true);
+  
+    const transaction: InputTransactionData = {
+      data: {
+        function: `${moduleAddress}::aptfunding::donate`,
+        functionArguments: [
+          parseInt(amount),
+          parseInt(projectId),
+          parseInt(roundId)
+        ],
+      },
+    };
+  
+    try {
+      const response = await signAndSubmitTransaction(transaction);
+      await aptos.waitForTransaction({ transactionHash: response.hash });
+    } catch (error) {
+      console.error("Transaction failed:", error);
+    } finally {
+      setTransactionInProgress(false);
+      setShowModal(true);
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-[100dvh] bg-gradient-to-br from-[rgb(108,0,162)] to-[rgb(0,17,82)]">
       <header className="flex items-center justify-between px-6 py-4 bg-primary text-primary-foreground">
@@ -26,7 +74,7 @@ export default function Component() {
                 blockchain converge to create endless possibilities.
             </p>
             <div className="flex gap-4">
-              <button className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
+              <button className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50" onClick={donate_funds}>
                 Fund Me
               </button>
               <button className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-8 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">

@@ -15,7 +15,7 @@ import RoundCreatedModal from "./modal";
 // Initialize the Aptos client and set module address
 const aptosConfig = new AptosConfig({ network: NETWORK });
 export const aptos = new Aptos(aptosConfig);
-export const moduleAddress = "0x2debc4b6b5c8273cbb4ca0742c54e79b41793834e287c67263f2701b40318e3f";
+export const moduleAddress = "0x63b291491eaace03eaebc33dd4d06d42f05c6d1a3e495acd48fe917da3fbb945";
 
 export function Component() {
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -52,7 +52,7 @@ export function Component() {
 
     const transaction: InputTransactionData = {
       data: {
-        function: `${moduleAddress}::aptfund::create_round`,
+        function: `${moduleAddress}::aptfunding::create_round`,
         functionArguments: [
           formData.name,
           formData.description,

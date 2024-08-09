@@ -23,6 +23,9 @@ import SocialMedia from "@/components/pages/socialmedia";
 import Blog from "@/components/pages/blog";
 import form from "@/components/comp/form";
 import round from "@/components/comp/round";
+import GenAI from "@/components/pages/GenAI";
+import text from "@/components/pages/Textai";
+import image1 from "@/components/pages/image";
 
 function App() {
   const { connected } = useWallet();
@@ -46,7 +49,9 @@ function App() {
         <Route path="/dashboard/social/blog" component={Blog} />
         <Route path ="/dashboard/form" component={form} />
         <Route path ="/dashboard/roundform" component={round} />
-        
+        <Route path ="/dashboard/GenAi" component={GenAI} />
+        <Route path="/dashboard/GenAI/textai" component={text} />
+        <Route path="/dashboard/GenAI/imageai" component={image1} />
         
       </Switch>
     </main>
