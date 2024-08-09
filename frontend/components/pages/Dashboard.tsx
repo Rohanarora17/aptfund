@@ -111,6 +111,19 @@ export default function Component() {
         </div>
       </header>
       <main className="flex-1 px-6 py-8">
+        <h2 className="text-2xl font-bold mb-6 text-primary-foreground">Current Openings</h2>
+        <HoverEffect items={currentOpenings} />
+        <h2 className="text-2xl font-bold mb-6 mt-12 text-primary-foreground">Upcoming Tracks</h2>
+        <HoverEffect items={upcomingTracks} />
+        <h2 className="text-2xl font-bold mb-6 mt-12 text-primary-foreground">Rounds Data</h2>
+        <ul>
+          {rounds.map((round, index) => (
+            <li key={index}>
+              {/* Render round details here */}
+              {JSON.stringify(round)}
+            </li>
+          ))}
+        </ul>
         <section>
           <h2 className="text-3xl font-extrabold text-white mb-6 relative">
             Current Openings
