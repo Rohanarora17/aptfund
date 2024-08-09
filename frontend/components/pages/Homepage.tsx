@@ -57,15 +57,17 @@ export function AnimatedNumber({ targetValue }: { targetValue: number }) {
 export function Homepage() {
   return (
     <BackgroundGradientAnimation>
-      <Header/>
-        <div className="flex justify-between items-center w-full px-6 py-4 bg-black bg-opacity-60">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white drop-shadow-lg">
+      
+        <div className="flex justify-between items-center w-full px-6 py-1 bg-black bg-opacity-60">
+          {/* <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white drop-shadow-lg">
             Apt Fund
-          </h1>
-          <Button className="text-white bg-blue-500 hover:bg-blue-600">
+          </h1> */}
+          <Header/>
+          {/* <Button className="text-white bg-blue-500 hover:bg-blue-600">
             Get Started
-          </Button>
+          </Button> */}
         </div>
+
 
       <div className="absolute z-50 inset-0 flex flex-col items-center justify-center text-white font-bold px-4 pointer-events-none text-center md:text-4xl lg:text-7xl">
         <p className="bg-clip-text text-transparent drop-shadow-2xl bg-gradient-to-b from-white/80 to-white/20 text-3xl md:text-4xl lg:text-7xl hover:cursor-pointer">
