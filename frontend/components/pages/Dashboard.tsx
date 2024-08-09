@@ -12,10 +12,12 @@ import { NETWORK } from "@/constants";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { useEffect, useState } from "react";
 
+// Set up Aptos client configuration
 const aptosConfig = new AptosConfig({ network: NETWORK });
 export const aptos = new Aptos(aptosConfig);
 export const moduleAddress = "0x2debc4b6b5c8273cbb4ca0742c54e79b41793834e287c67263f2701b40318e3f";
 
+// Function to fetch all rounds from the blockchain
 async function getAllRounds() {
   try {
     const response = await aptos.view({
@@ -29,6 +31,19 @@ async function getAllRounds() {
     return response;
   } catch (error) {
     console.error("Error fetching rounds data:", error);
+    if (error.response) {
+      console.error("Response error:", error.response.data);
+    }
+  }
+}
+
+// Function to test module access
+async function testModuleAccess() {
+  try {
+    const response = await aptos.getAccountModules(moduleAddress);
+    console.log("Modules at address:", response);
+  } catch (error) {
+    console.error("Error fetching modules at address:", error);
   }
 }
 
@@ -47,6 +62,7 @@ export default function Component() {
     };
 
     fetchRounds();
+    testModuleAccess(); // Test if the module is accessible
   }, []);
 
   const currentOpenings = [
@@ -111,29 +127,16 @@ export default function Component() {
         </div>
       </header>
       <main className="flex-1 px-6 py-8">
-        <h2 className="text-2xl font-bold mb-6 text-primary-foreground">Current Openings</h2>
-        <HoverEffect items={currentOpenings} />
-        <h2 className="text-2xl font-bold mb-6 mt-12 text-primary-foreground">Upcoming Tracks</h2>
-        <HoverEffect items={upcomingTracks} />
-        <h2 className="text-2xl font-bold mb-6 mt-12 text-primary-foreground">Rounds Data</h2>
-        <ul>
-          {rounds.map((round, index) => (
-            <li key={index}>
-              {/* Render round details here */}
-              {JSON.stringify(round)}
-            </li>
-          ))}
-        </ul>
         <section>
           <h2 className="text-3xl font-extrabold text-white mb-6 relative">
-            Current Openings
+            Active Rounds
             <span className="absolute left-0 -bottom-2 w-full h-1 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 rounded-full"></span>
           </h2>
           <HoverEffect items={currentOpenings} />
         </section>
         <section className="mt-12">
           <h2 className="text-3xl font-extrabold text-white mb-6 relative">
-            Upcoming Tracks
+            Upcoming Rounds
             <span className="absolute left-0 -bottom-2 w-full h-1 bg-gradient-to-r from-green-500 to-blue-500 rounded-full"></span>
           </h2>
           <HoverEffect items={upcomingTracks} />
