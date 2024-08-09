@@ -13,7 +13,7 @@ interface ProjectProps {
 
 const Project: React.FC<ProjectProps> = ({ title, description, projects, image, category }) => {
   const [location, setLocation] = useLocation();
-
+  console.log(location)
   const projectItems = projects.map((project) => ({
     title: project.title,
     description: "View Project",

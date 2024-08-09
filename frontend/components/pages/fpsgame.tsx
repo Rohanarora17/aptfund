@@ -1,13 +1,11 @@
 import FS from "@/components/images/FPSgame.jpg"; // Adjust the import path as needed
-import { SVGProps, useRef } from "react";
+import { SVGProps, } from "react";
 import { LogInWithAnonAadhaar, useAnonAadhaar } from "@anon-aadhaar/react";
 import {
-  AnonAadhaarCore,
-  deserialize,
   packGroth16Proof,
 } from "@anon-aadhaar/core";
 import { useEffect, useState } from "react";
-import audio from "./background-music.mp3";
+// import audio from "./background-music.mp3";
 import { useWallet, InputTransactionData } from "@aptos-labs/wallet-adapter-react";
 import { Aptos, AptosConfig } from "@aptos-labs/ts-sdk";
 import { NETWORK } from "@/constants";
@@ -22,8 +20,12 @@ export const moduleAddress = "0x63b291491eaace03eaebc33dd4d06d42f05c6d1a3e495acd
 export default function Component() {
   const [anonAadhaar] = useAnonAadhaar();
   const [anonAadhaarCore, setAnonAadhaarCore] = useState();
+  console.log("anonAadhaarCore", anonAadhaarCore);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [transactionInProgress, setTransactionInProgress] = useState(false); // State to track transaction progress
+  const [transactionInProgress, setTransactionInProgress] = useState(false);
+  console.log("Anon Aadhaar : ", anonAadhaar);
+  console.log(transactionInProgress);
+  // State to track transaction progress
   // const audioRef = useRef<HTMLAudioElement>(null); // Ref for the audio element
   const { account, signAndSubmitTransaction } = useWallet();
 
@@ -45,12 +47,12 @@ export default function Component() {
         handleModalUpload(proofs.proof);
         
         // Trigger the donation transaction after successful login
-        donateToProject(proofs.proof);  
+        donateToProject();  
       }
     }
   }, [anonAadhaar]);
 
-  const donateToProject = async (proof: any) => {
+  const donateToProject = async () => {
     if (!account) return;
 
     setTransactionInProgress(true);
@@ -174,7 +176,6 @@ export default function Component() {
             </button>
             <LogInWithAnonAadhaar
               nullifierSeed={1234}
-              useTestAadhaar={true}
               fieldsToReveal={["revealAgeAbove18"]}
               signal={"0xdD2FD4581271e230360230F9337D5c0430Bf44C0"}
             />

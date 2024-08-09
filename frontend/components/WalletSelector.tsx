@@ -12,8 +12,8 @@ import {
   useWallet,
 } from "@aptos-labs/wallet-adapter-react";
 import { ArrowLeft, ArrowRight, ChevronDown, Copy, LogOut, User } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
-import { useLocation } from "wouter";
+import { useCallback, useState} from "react";
+// import { useLocation } from "wouter";
 // Internal components
 import { Button } from "@/components/ui/button";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
@@ -48,7 +48,7 @@ export function WalletSelector() {
       });
     }
   }, [account?.address, toast]);
-  const [location,setLocation] = useLocation()
+  // const [location,setLocation] = useLocation()
 
   
 
@@ -97,9 +97,10 @@ interface ConnectWalletDialogProps {
 
 function ConnectWalletDialog({ close }: ConnectWalletDialogProps) {
   const {connected} = useWallet();
+  console.log(connected)
   const { wallets = [] } = useWallet();
   const { aptosConnectWallets, availableWallets, installableWallets } = groupAndSortWallets(wallets);
-  const [location, setLocation] = useLocation();
+  // const [location, setLocation] = useLocation();
 
   const hasAptosConnectWallets = !!aptosConnectWallets.length;
 
@@ -201,7 +202,7 @@ function WalletRow({ wallet, onConnect }: WalletRowProps) {
   );
 }
 
-function AptosConnectWalletRow({ wallet, onConnect }: WalletRowProps) {
+function AptosConnectWalletRow({ wallet }: WalletRowProps) {
 
   
 

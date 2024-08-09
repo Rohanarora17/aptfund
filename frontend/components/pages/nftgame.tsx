@@ -4,7 +4,7 @@ import { SVGProps } from "react";
 import { useWallet, InputTransactionData } from "@aptos-labs/wallet-adapter-react";
 import { Aptos, AptosConfig } from "@aptos-labs/ts-sdk";
 import { NETWORK } from "@/constants";
-import { useState, useEffect } from "react";
+import { useState} from "react";
 
 // Initialize the Aptos client and set module address
 const aptosConfig = new AptosConfig({ network: NETWORK });
@@ -21,7 +21,9 @@ export const moduleAddress = "0x63b291491eaace03eaebc33dd4d06d42f05c6d1a3e495acd
 export default function Component() {
 
   const [transactionInProgress, setTransactionInProgress] = useState(false);
+  console.log(transactionInProgress)
   const [showModal, setShowModal] = useState(false);
+  console.log(showModal)
   const { account, signAndSubmitTransaction } = useWallet();
 
   const amount = "1000";  // Example amount to donate

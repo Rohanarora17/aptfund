@@ -3,7 +3,7 @@ import { Header } from "@/components/Header";
 import { TypewriterEffectSmooth } from "../ui/typewriter-effect";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
-import { cn } from "@shadcn/ui";
+// import { cn } from "@shadcn/ui";
 
 export function TypewriterEffectSmoothDemo() {
   const words = [
@@ -57,16 +57,16 @@ export function AnimatedNumber({ targetValue }: { targetValue: number }) {
 export function Homepage() {
   return (
     <BackgroundGradientAnimation>
-      <Header>
+      <Header/>
         <div className="flex justify-between items-center w-full px-6 py-4 bg-black bg-opacity-60">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white drop-shadow-lg">
             Apt Fund
           </h1>
-          <Button variant="primary" className="text-white bg-blue-500 hover:bg-blue-600">
+          <Button className="text-white bg-blue-500 hover:bg-blue-600">
             Get Started
           </Button>
         </div>
-      </Header>
+
       <div className="absolute z-50 inset-0 flex flex-col items-center justify-center text-white font-bold px-4 pointer-events-none text-center md:text-4xl lg:text-7xl">
         <p className="bg-clip-text text-transparent drop-shadow-2xl bg-gradient-to-b from-white/80 to-white/20 text-3xl md:text-4xl lg:text-7xl hover:cursor-pointer">
           Apt Fund

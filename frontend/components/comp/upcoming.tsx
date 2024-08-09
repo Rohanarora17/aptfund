@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "wouter";
+// import { useLocation } from "wouter";
 
 interface ProjectProps {
   title: string;
@@ -9,7 +9,7 @@ interface ProjectProps {
 }
 
 const Project: React.FC<ProjectProps> = ({ title, description, image }) => {
-  const [, setLocation] = useLocation();
+  // const [l, setLocation] = useLocation();
   const [timeLeft, setTimeLeft] = useState(300); // Set initial countdown time in seconds (5 minutes)
 
   useEffect(() => {

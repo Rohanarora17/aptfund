@@ -16,7 +16,7 @@ import { useEffect, useState } from "react";
 // Set up Aptos client configuration
 const aptosConfig = new AptosConfig({ network: NETWORK });
 export const aptos = new Aptos(aptosConfig);
-export const moduleAddress = "0x63b291491eaace03eaebc33dd4d06d42f05c6d1a3e495acd48fe917da3fbb945";
+export const moduleAddress : any = "0x63b291491eaace03eaebc33dd4d06d42f05c6d1a3e495acd48fe917da3fbb945";
 
 // Function to fetch all rounds from the blockchain
 async function getAllRounds() {
@@ -30,7 +30,7 @@ async function getAllRounds() {
 
     console.log("Rounds data:", response);
     return response;
-  } catch (error) {
+  } catch (error :any) {
     console.error("Error fetching rounds data:", error);
     if (error.response) {
       console.error("Response error:", error.response.data);
@@ -41,7 +41,7 @@ async function getAllRounds() {
 // Function to test module access
 async function testModuleAccess() {
   try {
-    const response = await aptos.getAccountModules({ accountAddress : {moduleAddress}});
+    const response = await aptos.getAccountModules({ accountAddress: moduleAddress });
     console.log("Modules at address:", response);
   } catch (error) {
     console.error("Error fetching modules at address:", error);
@@ -50,7 +50,9 @@ async function testModuleAccess() {
 
 export default function Component() {
   const [location, setLocation] = useLocation();
+  console.log("Location is:", location);
   const { account } = useWallet();
+  console.log("Account is:", account?.address);
   const [rounds, setRounds] = useState<any[]>([]);
 
   useEffect(() => {
