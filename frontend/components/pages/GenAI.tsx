@@ -1,11 +1,11 @@
-import React from "react";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+// import React from "react";
+// import { Card, CardContent, CardHeader } from "@/components/ui/card";
+// import { Button } from "@/components/ui/button";
 import AI from "@/components/images/genai5.png";
 import textai from "@/components/images/textai3.webp";
 import imageai from "@/components/images/imageai.png";
-import { useLocation } from "wouter";
-import { JSX } from "react/jsx-runtime";
+// import { useLocation } from "wouter";
+// import { JSX } from "react/jsx-runtime";
 import Project from "../comp/Project";
 
 

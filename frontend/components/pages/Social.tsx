@@ -1,11 +1,11 @@
-import React from "react";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+// import React from "react";
+// import { Card, CardContent, CardHeader } from "@/components/ui/card";
+// import { Button } from "@/components/ui/button";
 import Social from "@/components/images/social.jpg";
 import SM from "@/components/images/SocialMedia.jpeg"
 import Blog from "@/components/images/Blog.png"
-import { useLocation } from "wouter";
-import { JSX } from "react/jsx-runtime";
+// import { useLocation } from "wouter";
+// import { JSX } from "react/jsx-runtime";
 import Project from "../comp/Project";
 
 export default function Component() {

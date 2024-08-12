@@ -1,12 +1,12 @@
 
-import { useWallet } from "@aptos-labs/wallet-adapter-react";
+// import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { Route, Switch } from "wouter";
 // Internal Components
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Header } from "@/components/Header";
-import { WalletDetails } from "@/components/WalletDetails";
-import { NetworkInfo } from "@/components/NetworkInfo";
-import { AccountInfo } from "@/components/AcoountInfo";
+// import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+// import { Header } from "@/components/Header";
+// import { WalletDetails } from "@/components/WalletDetails";
+// import { NetworkInfo } from "@/components/NetworkInfo";
+// import { AccountInfo } from "@/components/AcoountInfo";
 import { Homepage } from "@/components/pages/Homepage";
 import Dashboard from "@/components/pages/Dashboard";
 import DeFi from "@/components/pages/DeFi";
@@ -28,7 +28,7 @@ import text from "@/components/pages/Textai";
 import image1 from "@/components/pages/image";
 
 function App() {
-  const { connected } = useWallet();
+  // const { connected } = useWallet();
 
   return (
     <main>

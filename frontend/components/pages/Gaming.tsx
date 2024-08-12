@@ -1,11 +1,11 @@
-import React from "react";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+// import React from "react";
+// import { Card, CardContent, CardHeader } from "@/components/ui/card";
+// import { Button } from "@/components/ui/button";
 import GamingImage from "@/components/images/GAMING1.png";
 import NT from "@/components/images/NFTgame.jpeg";
 import FS from "@/components/images/FPSgame.jpg";
 import Project from "../comp/Project";
-import { Aptos, AptosConfig } from "@aptos-labs/ts-sdk";
+import { Aptos, AptosConfig ,MoveValue } from "@aptos-labs/ts-sdk";
 import { NETWORK } from "@/constants";
 import { useEffect, useState } from "react";
 
@@ -28,7 +28,7 @@ async function getRoundProjects(roundId : any) {
 
     console.log("Projects data:", response);
     return response;
-  } catch (error) {
+  } catch (error : any) {
     console.error("Error fetching projects data:", error);
     if (error.response) {
       console.error("Response error:", error.response.data);
@@ -38,8 +38,8 @@ async function getRoundProjects(roundId : any) {
 
 
 export default function Gaming() {
-  const [project_data, setProjects] = useState([]);
-
+  const [project_data, setProjects] = useState<MoveValue[]>([]);
+  console.log("Projects data before fetching:", project_data);
   useEffect(() => {
     const fetchProjects = async () => {
       const response = await getRoundProjects(id);

@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import cryptoimage from "@/components/images/cryptocurrencyex.jpeg"; // Adjust the import path as needed
 import { SVGProps } from "react";
 

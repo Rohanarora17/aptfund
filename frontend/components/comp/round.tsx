@@ -31,7 +31,7 @@ export function Component() {
   const { account, signAndSubmitTransaction } = useWallet();
   const navigate = useNavigate();
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e:any) => {
     const { id, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
@@ -39,11 +39,11 @@ export function Component() {
     }));
   };
 
-  const handleCategoryChange = (category) => {
+  const handleCategoryChange = (category : any) => {
     setSelectedCategory(category);
   };
 
-  const addNewRound = async (e) => {
+  const addNewRound = async (e :any) => {
     e.preventDefault();
     if (!account) return;
 
