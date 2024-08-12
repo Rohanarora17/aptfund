@@ -69,10 +69,10 @@ Make sure you have the following installed:
 
     ```toml
     [addresses]
-    aptfund = "<your_module_address>"
+    aptfund = "0x63b291491eaace03eaebc33dd4d06d42f05c6d1a3e495acd48fe917da3fbb945"
     ```
 
-    Replace `<your_module_address>` with your actual Aptos module address.
+    Replace `<your_module_address>` with the given module address.
 
 ### Running the DApp
 
