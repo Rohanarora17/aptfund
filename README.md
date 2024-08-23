@@ -5,6 +5,23 @@ Beyond Fair Funding: Ensuring True Impact with Dominant Assurance for Everyoneâ€
 
 Aptfund is the first-ever fundraising platform built on the Aptos blockchain. Our platform leverages quadratic funding and dominance assurance contracts to ensure that projects not only receive funds democratically but also meet their fundraising goals. Aptfund provides a unique mechanism where donors are incentivized to help projects reach their goals, ensuring no project is left underfunded.
 
+## Table of Contents
+
+| **Section**                    | **Description**                                                                                   |
+|--------------------------------|---------------------------------------------------------------------------------------------------|
+| **[Overview](#overview)**                   | An introduction to Aptfund, highlighting its unique features and purpose.                        |
+| **[Features](#features)**                   | Detailed explanation of key features like Quadratic Funding and Dominant Assurance Contracts.    |
+| **[Problem Statement](#problem-statement)**          | Discussion of the limitations of traditional crowdfunding platforms and the issues Aptfund addresses. |
+| **[Solution](#solution)**                   | Explanation of how Aptfund solves the problem with Dominant Assurance Contracts.                 |
+| **[Links](#links)**                      | Links to live demo, video, documentation, and Devfolio submission.                               |
+| **[Folder Structure](#folder-structure)**           | Overview of the dApp's directory structure, including frontend, Move contracts, and related files. |
+| **[Tools and Technologies](#tools-and-technologies)**     | List of technologies and frameworks used in the development of Aptfund.                          |
+| **[Getting Started](#getting-started)**            | Instructions for setting up the project, including prerequisites and installation steps.         |
+| **[Installation](#installation)**               | Detailed steps to clone the repository, install dependencies, and configure the environment.     |
+| **[Running the DApp](#running-the-dapp)**           | Guide to starting the development server and initializing the Move account.                      |
+| **[Additional Commands](#additional-commands)**        | List of available Aptos CLI commands and their usage.                                            |
+
+
 ## Features
 
 - **Quadratic Funding**: Ensures fair and democratic distribution of funds based on the unique number of contributors.
