@@ -27,11 +27,12 @@ Here’s how it works: DAC divides donors into two groups—early donors and lat
 In this way, we’ve taken the best practices from the crowdfunding world and implemented our own unique approach to ensure everyone’s success.
 
 
-##Links
+## Links
 
 - **Live Link**: https://aptfund-2mzp.vercel.app/
 - **Video Link**: https://www.youtube.com/watch?v=q3AERLvFcLI
 - **Docs Link**: https://docs.google.com/document/d/1PZn6ox9QvFaL-QTHShqZ5U87tYOLj5AskFwbLnjnTZw/edit?usp=sharing
+- **Devfolio Submission Link**: https://devfolio.co/projects/apt-fund-6d01
 
 ## Folder Structure
 
