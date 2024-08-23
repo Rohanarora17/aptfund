@@ -1,4 +1,5 @@
-# Aptfund - A Fundraising Platform on Aptos
+# Aptfund
+Beyond Fair Funding: Ensuring True Impact with Dominant Assurance for Everyone’s Success
 
 ## Overview
 
@@ -6,9 +7,31 @@ Aptfund is the first-ever fundraising platform built on the Aptos blockchain. Ou
 
 ## Features
 
-- **Quadratic Funding**: Ensures fair and democratic distribution of funds based on the number of contributors.
-- **Dominance Assurance Contract**: Protects investors by providing refunds and bonuses based on their contribution time if the project does not meet its funding goal.
+- **Quadratic Funding**: Ensures fair and democratic distribution of funds based on the unique number of contributors.
+- **Dominant Assurance Contract**: Protects investors by providing refunds and bonuses based on their contribution time if the project does not meet its funding goal.
 - **Early Donor Incentives**: Encourages early donations by offering bonuses if the funding goal is not met.
+- **More Donations**: This structure encourages more donations, as early donors are incentivized by the promise of a full refund with a bonus, while late donors are motivated to help the project reach its goal to avoid only receiving a partial refund.
+
+## Problem Statement
+
+Popular crowdfunding platforms like Gitcoin ensure that everyone receives fair funding by using a Quadratic Funding algorithm. This algorithm allocates funds in a round based on the number of unique donors rather than the total amount of money a project is receiving. While this method ensures that every project gets a share of the overall funding, it doesn’t guarantee that the share will be sufficient for the project to fully achieve its goals.
+
+For example, let’s say a project has a goal of raising 100k USDC to reach a specific milestone. After participating in a quadratic funding round, the project may receive only 20k USDC, even though they now have funds, this amount falls short of what’s needed to achieve their milestone.
+
+## Solution
+
+To address this issue, we’ve taken an extra step by introducing a Dominant Assurance Contract (DAC). This contract ensures that if a project doesn’t meet its funding goal after the quadratic funding round, the money will be refunded to donors with a bonus as a reward for their support.
+
+Here’s how it works: DAC divides donors into two groups—early donors and late donors. Early donors receive a complete refund with an additional bonus, while late donors receive a partial refund. This structure encourages more donations, as early donors are incentivized by the promise of a full refund with a bonus, while late donors are motivated to help the project reach its goal to avoid only receiving a partial refund.
+
+In this way, we’ve taken the best practices from the crowdfunding world and implemented our own unique approach to ensure everyone’s success.
+
+
+##Links
+
+- **Live Link**: https://aptfund-2mzp.vercel.app/
+- **Video Link**: https://www.youtube.com/watch?v=q3AERLvFcLI
+- **Docs Link**: https://docs.google.com/document/d/1PZn6ox9QvFaL-QTHShqZ5U87tYOLj5AskFwbLnjnTZw/edit?usp=sharing
 
 ## Folder Structure
 
